@@ -1,0 +1,21 @@
+import sun.plugin.com.PropertyGetDispatcher;
+
+import javax.servlet.RequestDispatcher;
+import java.io.IOException;
+
+public class FirstServlet extends javax.servlet.http.HttpServlet {
+    protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
+
+    }
+
+    protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
+    
+        //  Redirect
+        response.sendRedirect("https://web.whatsapp.com/");
+
+
+        //  Forward
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/your_jsp_file.jsp");
+        dispatcher.forward(request,response);
+    }
+}
