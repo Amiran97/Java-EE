@@ -1,0 +1,47 @@
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+public class FirstServlet extends javax.servlet.http.HttpServlet {
+    protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
+
+    }
+
+    protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
+        PrintWriter writer = response.getWriter();
+
+        writer.println("<html>");
+        writer.println("<h1>Hello world!</h1>");
+        
+        // Session
+        HttpSession session = request.getSession();
+
+        Integer count = ((Integer) session.getAttribute("count"));
+
+        count = count != null ? count+1 : 1;
+
+        session.setAttribute("count",count);
+
+        writer.println("<p>"+count+"</P>");
+
+        // Cookie  
+        Cookie cookie = new Cookie("key", "value");
+        cookie.setMaxAge(24*60*60);
+        response.addCookie(cookie);
+
+        Cookie[] list = request.getCookies();
+        for(Cookie item : list)
+        {
+            writer.println("<p>"+item.getName()+" : "+item.getValue()+"</p>");
+        }
+
+        // if you need remove cookie
+        // cookie.setMaxAge(0);
+        // or -1 for delete when browser close
+        // cookie.setMaxAge(-1);
+        
+        writer.println("</html>");
+    }
+}
